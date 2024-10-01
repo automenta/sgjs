@@ -1,18 +1,39 @@
-<div id="node-properties-panel" style="display: none; position: absolute; top: 10px; right: 10px; background-color: white; padding: 10px; border: 1px solid black;">
-  <h2>Node Properties</h2>
-  <label for="node-id">ID:</label>
-  <span id="node-id"></span><br>
-  <label for="node-type">Type:</label>
-  <span id="node-type"></span><br>
-  <label for="node-position-x">Position X:</label>
-  <input type="number" id="node-position-x" value="0"><br>
-  <label for="node-position-y">Position Y:</label>
-  <input type="number" id="node-position-y" value="0"><br>
-  <label for="node-size-width">Size Width:</label>
-  <input type="number" id="node-size-width" value="100"><br>
-  <label for="node-size-height">Size Height:</label>
-  <input type="number" id="node-size-height" value="50"><br>
-  <label for="node-color">Color:</label>
-  <input type="color" id="node-color" value="#000000"><br>
-  <button id="close-node-properties">Close</button>
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Node Editor</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <h2>Node Editor</h2>
+      <div class="node-properties">
+        <h3>Node Properties</h3>
+        <div>
+          <label for="node-size-width">Width:</label>
+          <input type="number" id="node-size-width" value="100">
+        </div>
+        <div>
+          <label for="node-size-height">Height:</label>
+          <input type="number" id="node-size-height" value="50">
+        </div>
+        <div>
+          <label for="node-color">Color:</label>
+          <input type="color" id="node-color" value="#000000">
+        </div>
+      </div>
+      <div class="zoom-controls">
+        <h3>Zoom</h3>
+        <input type="range" id="zoom-slider" min="0.1" max="2" step="0.1" value="1">
+        <span id="zoom-indicator">100%</span>
+        <button id="zoom-reset">Reset Zoom</button>
+      </div>
+      <button id="close-node-editor">Close Node Editor</button>
+    </div>
+    <canvas id="canvas"></canvas>
+  </div>
+  <script src="node_modules/gl-matrix/dist/gl-matrix-min.js"></script>
+  <script src="src/index.js"></script>
+</body>
+</html>
