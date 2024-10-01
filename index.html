@@ -4,49 +4,59 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ZUI System</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-    }
-    
-    #canvas {
-      width: 100%;
-      height: 100%;
-    }
-  </style>
-</head>
-<body>
-  <canvas id="canvas"></canvas>
-  <script src="./src/utils/webgl.js"></script>
-  <script src="./src/utils/VertexData.js"></script>
-  <script src="./src/utils/TransformMatrix.js"></script>
-  <script src="./src/camera/Camera.js"></script>
-  <script src="./src/scene/Node.js"></script>
-  <script src="./src/scene/Scene.js"></script>
-  <script src="./src/rendering/NodeRenderer.js"></script>
-  <script src="./src/rendering/Renderer.js"></script>
-  <script src="./src/rendering/basic.vert"></script>
-  <script src="./src/rendering/basic.frag"></script>
-  <script src="./src/examples/basic.js"></script>
-  <script src="./src/input/InputManager.js"></script>
-  <script src="./src/scene/WidgetNode.js"></script>
-  <script src="./src/scene/TextNode.js"></script>
-  <script src="./src/scene/ShapeNode.js"></script>
-  <script src="./src/scene/GroupNode.js"></script>
-  <script src="./src/scene/ButtonNode.js"></script>
-  <script src="./src/rendering/ButtonNodeRenderer.js"></script>
-  <script src="./src/scene/SliderNode.js"></script>
-  <script src="./src/rendering/SliderNodeRenderer.js"></script>
-  <script src="./src/scene/LabelNode.js"></script>
-  <script src="./src/rendering/LabelNodeRenderer.js"></script>
-  <script src="./src/scene/EdgeNode.js"></script>
-  <script src="./src/rendering/EdgeRenderer.js"></script>
-  <script src="./src/scene/ContainerNode.js"></script>
-  <script src="./src/rendering/RectangleNodeRenderer.js"></script>
-  <script src="./src/examples/SceneController.js"></script>
-  <script src="./src/examples/InputHandler.js"></script>
-  <script src="./src/index.js"></script>
-</body>
-</html>
+@@ -30,6 +36,38 @@
+     }
+   </style>
+ </head>
++<body>
++  <canvas id="canvas"></canvas>
++  <div id="node-editor-ui" style="display: none; position: absolute; top: 10px; right: 10px; background-color: white; padding: 10px; border: 1px solid black;">
++    <h2>Node Editor</h2>
++    <label for="node-id">ID:</label>
++    <span id="node-id"></span><br>
++    <label for="node-type">Type:</label>
++    <span id="node-type"></span><br>
++    <label for="node-position-x">Position X:</label>
++    <input type="number" id="node-position-x" value="0"><br>
++    <label for="node-position-y">Position Y:</label>
++    <input type="number" id="node-position-y" value="0"><br>
++    <label for="node-size-width">Size Width:</label>
++    <input type="number" id="node-size-width" value="100"><br>
++    <label for="node-size-height">Size Height:</label>
++    <input type="number" id="node-size-height" value="50"><br>
++    <label for="node-color">Color:</label>
++    <input type="color" id="node-color" value="#000000"><br>
++    <button id="close-node-editor">Close</button>
++  </div>
++  <script src="./src/utils/webgl.js"></script>
++  <script src="./src/utils/VertexData.js"></script>
++  <script src="./src/utils/TransformMatrix.js"></script>
++  <script src="./src/camera/Camera.js"></script>
++  <script src="./src/scene/Node.js"></script>
++  <script src="./src/scene/Scene.js"></script>
++  <script src="./src/rendering/NodeRenderer.js"></script>
++  <script src="./src/rendering/Renderer.js"></script>
++  <script src="./src/rendering/basic.vert"></script>
++  <script src="./src/rendering/basic.frag"></script>
++  <script src="./src/examples/node-editor.js"></script>
++  <script src="./src/input/InputManager.js"></script>
+ <body>
+   <canvas id="canvas"></canvas>
+   <script src="./src/utils/webgl.js"></script>
+@@ -40,7 +78,6 @@
+   <script src="./src/scene/Scene.js"></script>
+   <script src="./src/rendering/NodeRenderer.js"></script>
+   <script src="./src/rendering/Renderer.js"></script>
+-  <script src="./src/rendering/basic.vert"></script>
+   <script src="./src/rendering/basic.frag"></script>
+   <script src="./src/examples/basic.js"></script>
+   <script src="./src/input/InputManager.js"></script>
+@@ -55,6 +92,7 @@
+   <script src="./src/scene/EdgeNode.js"></script>
+   <script src="./src/rendering/EdgeRenderer.js"></script>
+   <script src="./src/scene/ContainerNode.js"></script>
++  <script src="./src/utils/frustum.js"></script>
+   <script src="./src/rendering/RectangleNodeRenderer.js"></script>
+   <script src="./src/examples/SceneController.js"></script>
+   <script src="./src/examples/InputHandler.js"></script>
+
