@@ -13,6 +13,11 @@ class Scene {
       this.nodes.splice(index, 1);
     }
   }
+
+  // Method to find a node by its ID
+  findNode(id) {
+    return this.nodes.find(node => node.id === id);
+  }
 }
 
 export default Scene;

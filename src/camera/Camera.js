@@ -42,6 +42,11 @@ class Camera {
       0, 0, 0, 1,
     ];
   }
+
+  // Method for updating the camera's view matrix
+  updateViewMatrix() {
+    this.viewMatrix = this.getViewMatrix();
+  }
 }
 
 export default Camera;

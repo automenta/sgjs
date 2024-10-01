@@ -3,6 +3,7 @@ import Camera from './camera/Camera';
 import InputManager from './input/InputManager';
 import Scene from './scene/Scene';
 import Node from './scene/Node';
+import WidgetNode from './scene/WidgetNode';
 
 // Create a new scene
 const scene = new Scene();
@@ -17,12 +18,20 @@ const camera = new Camera();
 const inputManager = new InputManager(renderer.canvas);
 
 // Create a node
-const node = new Node('node1', 'node', {
+const node1 = new Node('node1', 'node', {
   position: [0, 0],
 });
 
-// Add the node to the scene
-scene.addNode(node);
+// Create a widget node
+const widgetNode = new WidgetNode('widget1', 'widget', {
+  position: [100, 100],
+  color: '#ff0000',
+  size: [50, 50],
+});
+
+// Add the nodes to the scene
+scene.addNode(node1);
+scene.addNode(widgetNode);
 
 // Set up the rendering loop
 function render() {

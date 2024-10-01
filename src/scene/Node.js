@@ -29,6 +29,7 @@ class Node {
 
   set position(value) {
     this.transform.position = value;
+    this.transform.updateMatrix();
   }
 
   // ... other getters and setters

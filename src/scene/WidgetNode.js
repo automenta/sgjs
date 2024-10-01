@@ -17,7 +17,21 @@ class WidgetNode extends Node {
     return this.shape;
   }
 
-  // ... similar methods for color and size
+  setColor(color) {
+    this.color = color;
+  }
+
+  getColor() {
+    return this.color;
+  }
+
+  setSize(width, height) {
+    this.size = [width, height];
+  }
+
+  getSize() {
+    return this.size;
+  }
 
   // Methods for rendering the widget node
   render(renderer) {

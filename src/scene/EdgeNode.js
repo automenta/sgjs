@@ -18,7 +18,29 @@ class EdgeNode extends Node {
     return this.source;
   }
 
-  // ... similar methods for target, color, and lineWidth
+  setTarget(target) {
+    this.target = target;
+  }
+
+  getTarget() {
+    return this.target;
+  }
+
+  setColor(color) {
+    this.color = color;
+  }
+
+  getColor() {
+    return this.color;
+  }
+
+  setLineWidth(width) {
+    this.lineWidth = width;
+  }
+
+  getLineWidth() {
+    return this.lineWidth;
+  }
 
   // Methods for rendering the edge node
   render(renderer) {
