@@ -1,46 +1,46 @@
-import Node from './Node';
-import VertexData from '../utils/VertexData';
+import WidgetNode from './WidgetNode';
+import TransformMatrix from '../utils/TransformMatrix';
 
-class ButtonNode extends Node {
-  constructor(id, type, props) {
-    super(id, type, props);
-    this.label = props.label || 'Button';
-    this.color = props.color || '#000000';
-    this.size = props.size || [100, 50];
-    this.vertexData = VertexData.createRectangle(this.size[0], this.size[1], this.color);
+class ButtonNode extends WidgetNode {
+  constructor(id, type, options) {
+    super(id, type, options);
+    this.label = options.label || '';
+    this.onClick = options.onClick || (() => {});
   }
 
-  // Methods for setting and getting label, color, and size
-  setLabel(label) {
-    this.label = label;
+  update(dt) {
+    super.update(dt);
+    // Update button properties if needed
   }
 
-  getLabel() {
-    return this.label;
+  draw(renderer) {
+    const ctx = renderer.ctx;
+    ctx.fillStyle = `rgba(${this.color.join(',')})`;
+    ctx.strokeStyle = `rgba(${this.strokeStyle.join(',')})`;
+    ctx.lineWidth = this.lineWidth;
+    const transformMatrix = new TransformMatrix(this.transform);
+    const [x, y] = transformMatrix.applyToPoint([0, 0]);
+    const [width, height] = this.size;
+    ctx.fillRect(x, y, width, height);
+    ctx.strokeRect(x, y, width, height);
+    ctx.font = '16px Arial';
+    ctx.fillStyle = 'black';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(this.label, x + width / 2, y + height / 2);
   }
 
-  setColor(color) {
-    this.color = color;
-    this.vertexData = VertexData.createRectangle(this.size[0], this.size[1], this.color);
-  }
-
-  getColor() {
-    return this.color;
-  }
-
-  setSize(width, height) {
-    this.size = [width, height];
-    this.vertexData = VertexData.createRectangle(this.size[0], this.size[1], this.color);
-  }
-
-  getSize() {
-    return this.size;
-  }
-
-  // Methods for rendering the button node
-  render(renderer) {
-    // Render the button node based on its label, color, and size
-    renderer.renderNode(this);
+  handleClick(x, y) {
+    const transformMatrix = new TransformMatrix(this.transform);
+    const [localX, localY] = transformMatrix.invert().applyToPoint([x, y]);
+    if (
+      localX >= 0 &&
+      localX <= this.size[0] &&
+      localY >= 0 &&
+      localY <= this.size[1]
+    ) {
+      this.onClick();
+    }
   }
 }
 

@@ -1,42 +1,17 @@
-import NodeEditor from './NodeEditor';
-import GroupNode from '../scene/GroupNode';
-import WidgetNode from '../scene/WidgetNode';
-import TextNode from '../scene/TextNode';
-import ShapeNode from '../scene/ShapeNode';
+// ... other code ...
 
-// Create a new node editor
-const nodeEditor = new NodeEditor(document.getElementById('canvas'));
-
-// Create a group node
-const groupNode = new GroupNode('group1', 'group', {
-  position: [100, 100],
+// Create a button node
+const buttonNode = new ButtonNode('button1', 'button', {
+  position: [250, 250],
+  size: [100, 50],
+  color: [0.0, 0.0, 1.0, 1.0],
+  label: 'Click Me',
+  onClick: () => {
+    console.log('Button clicked!');
+  },
 });
 
-// Create a widget node
-const widgetNode1 = new WidgetNode('widget1', 'widget', {
-  position: [0, 0],
-  color: [1.0, 0.0, 0.0, 1.0],
-  size: [50, 50],
-});
+// Add the button to the scene
+groupNode.addChild(buttonNode);
 
-// Create a text node
-const textNode = new TextNode('text1', 'text', {
-  position: [75, 75],
-  text: 'Hello, world!',
-  font: '20px Arial',
-  color: [0, 0, 0, 1],
-});
-
-// Create a shape node
-const shapeNode = new ShapeNode('shape1', 'shape', {
-  position: [150, 150],
-  shape: 'circle',
-  color: [0.0, 1.0, 0.0, 1.0],
-  size: [50, 50],
-});
-
-// Add the nodes to the scene
-groupNode.addChild(widgetNode1);
-groupNode.addChild(textNode);
-groupNode.addChild(shapeNode);
-nodeEditor.addNode(groupNode);
+// ... other code ...
