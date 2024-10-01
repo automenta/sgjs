@@ -1,3 +1,4 @@
+import { mat4 } from 'gl-matrix';
 import Renderer from './rendering/Renderer';
 import Camera from './camera/Camera';
 import InputManager from './input/InputManager';
@@ -24,25 +25,28 @@ import InputHandler from './examples/InputHandler';
  
  // Create a new scene
  const scene = new Scene();
-@@ -102,6 +103,7 @@
+@@ -103,7 +104,7 @@
  renderer.registerNodeRenderer('label', new LabelNodeRenderer());
  renderer.registerNodeRenderer('edge', new EdgeRenderer());
  
-+// TODO: Add a zoom UI (e.g., a slider or buttons)
+-// TODO: Add a zoom UI (e.g., a slider or buttons) to control the camera's zoom level
++// TODO: Add a zoom UI (e.g., a slider or buttons) to control the camera's zoom level.
  // Set up the rendering loop
  function render() {
    // Update the camera's view matrix
-@@ -121,10 +123,12 @@
+@@ -124,12 +125,12 @@
  inputManager.addHandler('pan', (dx, dy) => {
    camera.pan(dx, dy);
  });
--
- inputManager.addHandler('zoom', (factor) => {
-   camera.zoomIn(factor);
+-inputManager.addHandler('zoomIn', (factor) => {
++inputManager.addHandler('zoomIn', (factor) => { 
+   camera.zoom(factor);
  });
-+
-+// TODO: Add a zoom out handler
- inputManager.addHandler('zoomOut', (factor) => {
-   camera.zoomOut(factor);
+ 
+-// TODO: Add a zoom out handler
+-inputManager.addHandler('zoomOut', (factor) => { 
++inputManager.addHandler('zoomOut', (factor) => {
+   camera.zoom(1 / factor);
  });
+ 
 
