@@ -2,34 +2,12 @@ class InputManager {
   constructor(canvas) {
     this.canvas = canvas;
     this.handlers = {};
-    this.currentMode = 'pan';
-    this.isDragging = false;
-    this.lastMousePosition = [0, 0];
-    this.selectedNode = null;
- 
--    this.canvas.addEventListener('mousedown', this.handleMouseDown.bind(this));
--    this.canvas.addEventListener('mousemove', this.handleMouseMove.bind(this));
--    this.canvas.addEventListener('mouseup', this.handleMouseUp.bind(this));
--    this.canvas.addEventListener('wheel', this.handleWheel.bind(this));
--    this.canvas.addEventListener('touchstart', this.handleTouchStart.bind(this));
--    this.canvas.addEventListener('touchmove', this.handleTouchMove.bind(this));
--    this.canvas.addEventListener('touchend', this.handleTouchEnd.bind(this));
-+    this.canvas.addEventListener('mousedown', this.onMouseDown.bind(this));
-+    this.canvas.addEventListener('mousemove', this.onMouseMove.bind(this));
-+    this.canvas.addEventListener('mouseup', this.onMouseUp.bind(this));
-+    this.canvas.addEventListener('wheel', this.onWheel.bind(this));
-+    this.canvas.addEventListener('touchstart', this.onTouchStart.bind(this));
-+    this.canvas.addEventListener('touchmove', this.onTouchMove.bind(this));
-+    this.canvas.addEventListener('touchend', this.onTouchEnd.bind(this));
-   }
- 
-   addHandler(mode, handler) {
-@@ -100,36 +106,36 @@
+@@ -112,36 +118,36 @@
      this.currentMode = mode;
    }
  
--  handleMouseDown(event) {
-+  onMouseDown(event) {
+-  onMouseDown(event) {
++  handleMouseDown(event) {
      this.isDragging = true;
      this.lastMousePosition = [event.clientX, event.clientY];
  
@@ -41,8 +19,8 @@ class InputManager {
      }
    }
  
--  handleMouseMove(event) {
-+  onMouseMove(event) {
+-  onMouseMove(event) {
++  handleMouseMove(event) {
      if (this.isDragging) {
        const dx = event.clientX - this.lastMousePosition[0];
        const dy = event.clientY - this.lastMousePosition[1];
@@ -56,17 +34,17 @@ class InputManager {
            this.selectedNode.position[1] + dy,
          ];
        }
--
++
        this.lastMousePosition = [event.clientX, event.clientY];
      }
    }
  
 -  handleMouseUp(event) {
-+  onMouseUp(event) {
++  handleMouseUp(event) {
      this.isDragging = false;
      this.selectedNode = null;
      this.currentMode = 'pan';
-@@ -137,23 +143,23 @@
+@@ -149,23 +155,23 @@
      this.currentMode = 'pan';
    }
  
