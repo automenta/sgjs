@@ -7,4 +7,5 @@ if ! command -v http-server &> /dev/null; then
   exit 1
 fi
 
-# Start the server with automatic
+# Start the server with automatic open
+http-server -o

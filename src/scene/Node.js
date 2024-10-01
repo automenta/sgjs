@@ -1,3 +1,5 @@
+import TransformMatrix from '../utils/TransformMatrix';
+
 class Node {
   constructor(id, type, props) {
     this.id = id;

@@ -1,4 +1,5 @@
 import Node from './Node';
+import VertexData from '../utils/VertexData';
 
 class EdgeNode extends Node {
   constructor(id, type, props) {
@@ -7,11 +8,13 @@ class EdgeNode extends Node {
     this.target = props.target; // Reference to the target node
     this.color = props.color || '#000000'; // Default color is black
     this.lineWidth = props.lineWidth || 2; // Default line width is 2
+    this.vertexData = VertexData.createLine(this.source.position, this.target.position, this.color);
   }
 
   // Methods for setting and getting source, target, color, and lineWidth
   setSource(source) {
     this.source = source;
+    this.vertexData = VertexData.createLine(this.source.position, this.target.position, this.color);
   }
 
   getSource() {
@@ -20,6 +23,7 @@ class EdgeNode extends Node {
 
   setTarget(target) {
     this.target = target;
+    this.vertexData = VertexData.createLine(this.source.position, this.target.position, this.color);
   }
 
   getTarget() {
@@ -28,6 +32,7 @@ class EdgeNode extends Node {
 
   setColor(color) {
     this.color = color;
+    this.vertexData = VertexData.createLine(this.source.position, this.target.position, this.color);
   }
 
   getColor() {

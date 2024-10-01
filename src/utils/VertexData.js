@@ -27,6 +27,15 @@ class VertexData {
     ];
     return new VertexData(vertices, color);
   }
+
+  // Static method for creating line vertex data
+  static createLine(start, end, color) {
+    const vertices = [
+      start[0], start[1],
+      end[0], end[1],
+    ];
+    return new VertexData(vertices, color);
+  }
 }
 
 export default VertexData;
