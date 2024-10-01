@@ -4,26 +4,14 @@ class InputHandler {
     this.handlers = {};
   }
 
-  addHandler(type, handler) {
-    this.handlers[type] = handler;
+  addHandler(mode, handler) {
+    this.handlers[mode] = handler;
   }
 
   handleEvent(event) {
-    const { type, x, y, deltaY } = event;
-    if (this.handlers[type]) {
-      switch (type) {
-        case 'pan':
-          this.handlers[type](x, y);
-          break;
-        case 'zoom':
-          this.handlers[type](deltaY);
-          break;
-        case 'click':
-          this.handlers[type](x, y);
-          break;
-        default:
-          console.warn(`Unknown event type: ${type}`);
-      }
+    const handler = this.handlers[event.type];
+    if (handler) {
+      handler(event.x, event.y, event.deltaY);
     }
   }
 }

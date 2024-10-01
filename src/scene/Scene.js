@@ -1,23 +1,12 @@
-class Scene {
-  constructor() {
-    this.nodes = [];
-  }
+--- a/src/scene/Scene.js
++++ b/src/scene/Scene.js
+@@ -19,7 +19,7 @@
+   }
+ 
+   getNodeAtPoint(x, y) { // Find the node at a given point (for selection)
+-    // TODO: Implement logic to find the node at the given point
++    return this.nodes.find(node => node.containsPoint(x, y));
+   }
+ }
+ 
 
-  addNode(node) {
-    this.nodes.push(node);
-  }
-
-  removeNode(node) {
-    const index = this.nodes.indexOf(node);
-    if (index !== -1) {
-      this.nodes.splice(index, 1);
-    }
-  }
-
-  // Method to find a node by its ID
-  findNode(id) {
-    return this.nodes.find(node => node.id === id);
-  }
-}
-
-export default Scene;
