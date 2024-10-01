@@ -5,6 +5,7 @@ import Scene from './scene/Scene';
 import Node from './scene/Node';
 import WidgetNode from './scene/WidgetNode';
 import RectangleNodeRenderer from './rendering/RectangleNodeRenderer';
+import NodeRenderer from './rendering/NodeRenderer';
 
 // Create a new scene
 const scene = new Scene();
@@ -26,7 +27,7 @@ const node1 = new Node('node1', 'node', {
 // Create a widget node
 const widgetNode = new WidgetNode('widget1', 'widget', {
   position: [100, 100],
-  color: '#ff0000',
+  color: [1.0, 0.0, 0.0, 1.0],
   size: [50, 50],
 });
 
@@ -35,7 +36,7 @@ scene.addNode(node1);
 scene.addNode(widgetNode);
 
 // Register the rectangle node renderer
-renderer.registerNodeRenderer('widget', new RectangleNodeRenderer());
+renderer.registerNodeRenderer('widget', new NodeRenderer());
 
 // Set up the rendering loop
 function render() {
