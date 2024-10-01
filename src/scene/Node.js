@@ -7,6 +7,7 @@ class Node {
     this.children = [];
     this.transform = new TransformMatrix();
     this.transform.setPosition(props.position[0], props.position[1]);
+    this.vertexData = VertexData.createRectangle(100, 50, [1.0, 0.0, 0.0, 1.0]); // Default rectangle
   }
 
   addChild(child) {

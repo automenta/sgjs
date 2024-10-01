@@ -1,4 +1,6 @@
 import { gl } from '../utils/webgl';
+import VertexData from '../utils/VertexData';
+import NodeRenderer from './NodeRenderer';
 
 class Renderer {
   constructor() {
@@ -8,6 +10,9 @@ class Renderer {
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
     document.body.appendChild(this.canvas);
+
+    // Create a default shader program for all node types
+    this.createDefaultShaderProgram();
   }
 
   // Method for creating a shader program
@@ -28,6 +33,33 @@ class Renderer {
     return shaderProgram;
   }
 
+  // Method for creating the default shader program
+  createDefaultShaderProgram() {
+    this.programs.default = this.createShaderProgram(
+      `
+      attribute vec2 aVertexPosition;
+      attribute vec4 aVertexColor;
+
+      uniform mat4 uModelViewMatrix;
+      uniform mat4 uProjectionMatrix;
+
+      varying lowp vec4 vColor;
+
+      void main(void) {
+        gl_Position = uProjectionMatrix * uModelViewMatrix * vec4(aVertexPosition, 0.0, 1.0);
+        vColor = aVertexColor;
+      }
+      `,
+      `
+      varying lowp vec4 vColor;
+
+      void main(void) {
+        gl_FragColor = vColor;
+      }
+      `,
+    );
+  }
+
   loadShader(type, source) {
     const shader = gl.createShader(type);
     gl.shaderSource(shader, source);
@@ -44,132 +76,9 @@ class Renderer {
 
   // Method for rendering a node
   renderNode(node) {
-    // Get the appropriate shader program for the node's type
-    let program = this.programs[node.type];
-    if (!program) {
-      // Create the shader program if it doesn't exist
-      if (node.type === 'node') {
-        program = this.createShaderProgram(
-          `
-          attribute vec2 aVertexPosition;
-          attribute vec4 aVertexColor;
-
-          uniform mat4 uModelViewMatrix;
-          uniform mat4 uProjectionMatrix;
-
-          varying lowp vec4 vColor;
-
-          void main(void) {
-            gl_Position = uProjectionMatrix * uModelViewMatrix * vec4(aVertexPosition, 0.0, 1.0);
-            vColor = aVertexColor;
-          }
-          `,
-          `
-          varying lowp vec4 vColor;
-
-          void main(void) {
-            gl_FragColor = vColor;
-          }
-          `,
-        );
-      } else if (node.type === 'widget') {
-        program = this.createShaderProgram(
-          `
-          attribute vec2 aVertexPosition;
-          attribute vec4 aVertexColor;
-
-          uniform mat4 uModelViewMatrix;
-          uniform mat4 uProjectionMatrix;
-
-          varying lowp vec4 vColor;
-
-          void main(void) {
-            gl_Position = uProjectionMatrix * uModelViewMatrix * vec4(aVertexPosition, 0.0, 1.0);
-            vColor = aVertexColor;
-          }
-          `,
-          `
-          varying lowp vec4 vColor;
-
-          void main(void) {
-            gl_FragColor = vColor;
-          }
-          `,
-        );
-      } else if (node.type === 'edge') {
-        program = this.createShaderProgram(
-          `
-          attribute vec2 aVertexPosition;
-          attribute vec4 aVertexColor;
-
-          uniform mat4 uModelViewMatrix;
-          uniform mat4 uProjectionMatrix;
-
-          varying lowp vec4 vColor;
-
-          void main(void) {
-            gl_Position = uProjectionMatrix * uModelViewMatrix * vec4(aVertexPosition, 0.0, 1.0);
-            vColor = aVertexColor;
-          }
-          `,
-          `
-          varying lowp vec4 vColor;
-
-          void main(void) {
-            gl_FragColor = vColor;
-          }
-          `,
-        );
-      }
-      this.programs[node.type] = program;
-    }
-
-    // Set up the shader program and uniforms
-    gl.useProgram(program);
-
-    const positionLocation = gl.getAttribLocation(program, 'aVertexPosition');
-    const colorLocation = gl.getAttribLocation(program, 'aVertexColor');
-
-    const modelViewMatrixLocation = gl.getUniformLocation(program, 'uModelViewMatrix');
-    const projectionMatrixLocation = gl.getUniformLocation(program, 'uProjectionMatrix');
-
-    // Create a buffer for the node's vertices
-    const buffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-    const vertices = [
-      -0.5, -0.5,
-      0.5, -0.5,
-      0.5, 0.5,
-      -0.5, 0.5,
-    ];
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
-
-    // Create a buffer for the node's colors
-    const colorBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
-    const colors = [
-      1.0, 0.0, 0.0, 1.0,
-      0.0, 1.0, 0.0, 1.0,
-      0.0, 0.0, 1.0, 1.0,
-      1.0, 1.0, 0.0, 1.0,
-    ];
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
-
-    // Set up the vertex attributes
-    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-    gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
-    gl.enableVertexAttribArray(positionLocation);
-
-    gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
-    gl.vertexAttribPointer(colorLocation, 4, gl.FLOAT, false, 0, 0);
-    gl.enableVertexAttribArray(colorLocation);
-
-    // Set up the model-view and projection matrices
-    gl.uniformMatrix4fv(modelViewMatrixLocation, false, node.transform.matrix);
-    gl.uniformMatrix4fv(projectionMatrixLocation, false, node.transform.matrix);
-
-    // Draw the node
-    gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
+    // Get the appropriate node renderer for the node's type
+    const nodeRenderer = new NodeRenderer(this.gl, this.programs.default);
+    nodeRenderer.render(node);
   }
 
   // Method for rendering the scene graph

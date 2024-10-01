@@ -29,9 +29,12 @@ class TransformMatrix {
 
   // Method for updating the transform matrix
   updateMatrix() {
+    const cos = Math.cos(this.rotation);
+    const sin = Math.sin(this.rotation);
+
     this.matrix = [
-      this.scale[0], 0, 0, 0,
-      0, this.scale[1], 0, 0,
+      this.scale[0] * cos, this.scale[0] * -sin, 0, 0,
+      this.scale[1] * sin, this.scale[1] * cos, 0, 0,
       0, 0, 1, 0,
       this.position[0], this.position[1], 0, 1,
     ];

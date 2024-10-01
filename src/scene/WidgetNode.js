@@ -1,4 +1,5 @@
 import Node from './Node';
+import VertexData from '../utils/VertexData';
 
 class WidgetNode extends Node {
   constructor(id, type, props) {
@@ -6,6 +7,7 @@ class WidgetNode extends Node {
     this.shape = props.shape || 'rect'; // Default shape is rectangle
     this.color = props.color || '#000000'; // Default color is black
     this.size = props.size || [100, 50]; // Default size is 100x50
+    this.vertexData = VertexData.createRectangle(this.size[0], this.size[1], this.color);
   }
 
   // Methods for setting and getting shape, color, and size
@@ -19,6 +21,7 @@ class WidgetNode extends Node {
 
   setColor(color) {
     this.color = color;
+    this.vertexData = VertexData.createRectangle(this.size[0], this.size[1], this.color);
   }
 
   getColor() {
@@ -27,6 +30,7 @@ class WidgetNode extends Node {
 
   setSize(width, height) {
     this.size = [width, height];
+    this.vertexData = VertexData.createRectangle(this.size[0], this.size[1], this.color);
   }
 
   getSize() {
