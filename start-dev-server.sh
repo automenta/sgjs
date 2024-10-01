@@ -8,4 +8,4 @@ if ! command -v http-server &> /dev/null; then
 fi
 
 # Start the server with automatic open
-http-server -o
+http-server -o -c-1
