@@ -48,6 +48,12 @@ class Node {
     //   [this.position[0] + this.size[0] / 2, this.position[1] + this.size[1] / 2],
     //   [this.position[0] - this.size[0] / 2, this.position[1] + this.size[1] / 2],
     // ];
+    return [
+      [this.position[0] - this.size[0] / 2, this.position[1] - this.size[1] / 2],
+      [this.position[0] + this.size[0] / 2, this.position[1] - this.size[1] / 2],
+      [this.position[0] + this.size[0] / 2, this.position[1] + this.size[1] / 2],
+      [this.position[0] - this.size[0] / 2, this.position[1] + this.size[1] / 2],
+    ];
   }
 
   // Method for updating the node's transform matrix
