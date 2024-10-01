@@ -6,6 +6,8 @@ class ButtonNode extends WidgetNode {
     super(id, type, options);
     this.label = options.label || '';
     this.onClick = options.onClick || (() => {});
+    this.strokeStyle = options.strokeStyle || [0, 0, 0, 1];
+    this.lineWidth = options.lineWidth || 1;
   }
 
   update(dt) {
