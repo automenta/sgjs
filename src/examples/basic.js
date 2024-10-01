@@ -1,10 +1,14 @@
-const canvas = document.getElementById('canvas');
-const renderer = new Renderer(canvas);
-const camera = new Camera();
-const scene = new Scene();
+--- a/src/examples/basic.js
++++ b/src/examples/basic.js
+@@ -1,6 +1,7 @@
+ const canvas = document.getElementById('canvas');
+ const renderer = new Renderer(canvas);
+ const camera = new Camera();
++const inputHandler = new InputHandler(canvas);
+ const scene = new Scene();
  
  // Create a widget node
-@@ -1162,28 +1168,28 @@
+@@ -1162,28 +1163,28 @@
        }
      });
  
