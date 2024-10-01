@@ -12,7 +12,6 @@ class ButtonNode extends WidgetNode {
 
   update(dt) {
     super.update(dt);
-    // Update button properties if needed
   }
 
   draw(renderer) {
@@ -35,12 +34,7 @@ class ButtonNode extends WidgetNode {
   handleClick(x, y) {
     const transformMatrix = new TransformMatrix(this.transform);
     const [localX, localY] = transformMatrix.invert().applyToPoint([x, y]);
-    if (
-      localX >= 0 &&
-      localX <= this.size[0] &&
-      localY >= 0 &&
-      localY <= this.size[1]
-    ) {
+    if (localX >= 0 && localX <= this.size[0] && localY >= 0 && localY <= this.size[1]) {
       this.onClick();
     }
   }

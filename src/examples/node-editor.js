@@ -7,6 +7,12 @@ import NodeRenderer from '../rendering/NodeRenderer';
 import TextNode from '../scene/TextNode';
 import ShapeNode from '../scene/ShapeNode';
 import GroupNode from '../scene/GroupNode';
+import ButtonNode from '../scene/ButtonNode';
+import ButtonNodeRenderer from '../rendering/ButtonNodeRenderer';
+import SliderNode from '../scene/SliderNode';
+import SliderNodeRenderer from '../rendering/SliderNodeRenderer';
+import LabelNode from '../scene/LabelNode';
+import LabelNodeRenderer from '../rendering/LabelNodeRenderer';
 
 // Create a new scene
 const scene = new Scene();
@@ -48,16 +54,49 @@ const shapeNode = new ShapeNode('shape1', 'shape', {
   size: [50, 50],
 });
 
+// Create a button node
+const buttonNode = new ButtonNode('button1', 'button', {
+  position: [250, 250],
+  size: [100, 50],
+  color: [0.0, 0.0, 1.0, 1.0],
+  label: 'Click Me',
+  onClick: () => {
+    console.log('Button clicked!');
+  },
+});
+
+// Create a slider node
+const sliderNode = new SliderNode('slider1', 'slider', {
+  position: [400, 400],
+  color: [0.5, 0.5, 0.5, 1.0],
+  value: 50,
+  min: 0,
+  max: 100,
+});
+
+// Create a label node
+const labelNode = new LabelNode('label1', 'label', {
+  position: [500, 500],
+  color: [0.0, 0.0, 0.0, 1.0],
+  text: 'Hello World',
+});
+
 // Add the nodes to the scene
 groupNode.addChild(widgetNode1);
 groupNode.addChild(textNode);
 groupNode.addChild(shapeNode);
+groupNode.addChild(buttonNode);
+groupNode.addChild(sliderNode);
+groupNode.addChild(labelNode);
 scene.addNode(groupNode);
 
 // Register the node renderers
 renderer.registerNodeRenderer('widget', new NodeRenderer());
 renderer.registerNodeRenderer('text', new NodeRenderer());
 renderer.registerNodeRenderer('shape', new NodeRenderer());
+renderer.registerNodeRenderer('button', new ButtonNodeRenderer());
+renderer.registerNodeRenderer('slider', new SliderNodeRenderer());
+renderer.registerNodeRenderer('label', new LabelNodeRenderer());
 
 // Set up the rendering loop
 function render() {

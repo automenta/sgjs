@@ -1,12 +1,9 @@
 import { mat4 } from 'gl-matrix';
 
-// Function for calculating the frustum planes from the view and projection matrices
 export function calculateFrustumPlanes(viewMatrix, projectionMatrix) {
-  // Combine the view and projection matrices
   const modelViewProjectionMatrix = mat4.create();
   mat4.multiply(modelViewProjectionMatrix, projectionMatrix, viewMatrix);
 
-  // Extract the frustum planes from the combined matrix
   const frustumPlanes = [
     // Left plane
     [modelViewProjectionMatrix[3] + modelViewProjectionMatrix[0],
@@ -45,12 +42,8 @@ export function calculateFrustumPlanes(viewMatrix, projectionMatrix) {
      modelViewProjectionMatrix[15] - modelViewProjectionMatrix[14]],
   ];
 
-  // Normalize the plane equations
-  for (let i = 0; i < frustumPlanes.length; i++) {
-    const plane = frustumPlanes[i];
+  return frustumPlanes.map((plane) => {
     const length = Math.sqrt(plane[0] * plane[0] + plane[1] * plane[1] + plane[2] * plane[2]);
-    frustumPlanes[i] = [plane[0] / length, plane[1] / length, plane[2] / length, plane[3] / length];
-  }
-
-  return frustumPlanes;
+    return [plane[0] / length, plane[1] / length, plane[2] / length, plane[3] / length];
+  });
 }

@@ -1,13 +1,12 @@
 class InputManager {
   constructor(canvas) {
     this.canvas = canvas;
-    this.handlers = {}; // Store input handlers
-    this.currentMode = 'pan'; // Default interaction mode is panning
+    this.handlers = {};
+    this.currentMode = 'pan';
     this.isDragging = false;
     this.lastMousePosition = [0, 0];
     this.selectedNode = null;
 
-    // Add event listeners for mouse and touch events
     this.canvas.addEventListener('mousedown', this.handleMouseDown.bind(this));
     this.canvas.addEventListener('mousemove', this.handleMouseMove.bind(this));
     this.canvas.addEventListener('mouseup', this.handleMouseUp.bind(this));
@@ -17,26 +16,22 @@ class InputManager {
     this.canvas.addEventListener('touchend', this.handleTouchEnd.bind(this));
   }
 
-  // Method for adding an input handler
   addHandler(mode, handler) {
     this.handlers[mode] = handler;
   }
 
-  // Method for setting the current interaction mode
   setMode(mode) {
     this.currentMode = mode;
   }
 
-  // Event handlers for mouse and touch events
   handleMouseDown(event) {
     this.isDragging = true;
     this.lastMousePosition = [event.clientX, event.clientY];
 
-    // Check if a node is clicked
     const clickedNode = this.getNodeAtPoint(event.clientX, event.clientY);
     if (clickedNode) {
       this.selectedNode = clickedNode;
-      this.currentMode = 'drag'; // Switch to drag mode if a node is selected
+      this.currentMode = 'drag';
     }
   }
 
@@ -61,7 +56,7 @@ class InputManager {
   handleMouseUp(event) {
     this.isDragging = false;
     this.selectedNode = null;
-    this.currentMode = 'pan'; // Switch back to pan mode
+    this.currentMode = 'pan';
   }
 
   handleWheel(event) {
@@ -81,7 +76,6 @@ class InputManager {
     // ... (handle touch end event)
   }
 
-  // Method for getting the node at a given point
   getNodeAtPoint(x, y) {
     // ... (implement logic to find the node at the given point)
   }

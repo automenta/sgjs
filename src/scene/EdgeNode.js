@@ -4,9 +4,13 @@ import VertexData from '../utils/VertexData';
 class EdgeNode extends Node {
   constructor(id, type, props) {
     super(id, type, props);
-    this.source = props.source; // Reference to the source node
-    this.target = props.target; // Reference to the target node
+    this.source = props.source;
+    this.target = props.target;
     this.color = props.color || '#000000';
+    this.updateVertexData();
+  }
+
+  updateVertexData() {
     this.vertexData = VertexData.createLine(
       [this.source.position[0], this.source.position[1]],
       [this.target.position[0], this.target.position[1]],
@@ -14,49 +18,22 @@ class EdgeNode extends Node {
     );
   }
 
-  // Methods for setting and getting source, target, and color
   setSource(source) {
     this.source = source;
-    this.vertexData = VertexData.createLine(
-      [this.source.position[0], this.source.position[1]],
-      [this.target.position[0], this.target.position[1]],
-      this.color,
-    );
-  }
-
-  getSource() {
-    return this.source;
+    this.updateVertexData();
   }
 
   setTarget(target) {
     this.target = target;
-    this.vertexData = VertexData.createLine(
-      [this.source.position[0], this.source.position[1]],
-      [this.target.position[0], this.target.position[1]],
-      this.color,
-    );
-  }
-
-  getTarget() {
-    return this.target;
+    this.updateVertexData();
   }
 
   setColor(color) {
     this.color = color;
-    this.vertexData = VertexData.createLine(
-      [this.source.position[0], this.source.position[1]],
-      [this.target.position[0], this.target.position[1]],
-      this.color,
-    );
+    this.updateVertexData();
   }
 
-  getColor() {
-    return this.color;
-  }
-
-  // Methods for rendering the edge node
   render(renderer) {
-    // Render the edge node based on its source, target, and color
     renderer.renderNode(this);
   }
 }
