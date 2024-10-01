@@ -143,33 +143,32 @@ var RectangleNodeRenderer = require('../rendering/RectangleNodeRenderer');
    const node = scene.getNodeAtPoint(x, y);
    if (node) {
      console.log('Selected node:', node);
--    // TODO: Implement node editing UI
-+    // Show the node editing UI
-+    const nodeEditorUI = document.getElementById('node-editor-ui');
-+    nodeEditorUI.style.display = 'block';
-+    // Update the UI with the node's properties
-+    document.getElementById('node-id').textContent = node.id;
-+    document.getElementById('node-type').textContent = node.type;
-+    document.getElementById('node-position-x').value = node.position[0];
-+    document.getElementById('node-position-y').value = node.position[1];
-+    document.getElementById('node-size-width').value = node.size[0];
-+    document.getElementById('node-size-height').value = node.size[1];
-+    document.getElementById('node-color').value = node.color;
-+    // Add event listeners to the UI elements to update the node's properties
-+    document.getElementById('node-position-x').addEventListener('change', (event) => {
-+      node.position[0] = parseFloat(event.target.value);
-+    });
-+    document.getElementById('node-position-y').addEventListener('change', (event) => {
-+      node.position[1] = parseFloat(event.target.value);
-+    });
-+    document.getElementById('node-size-width').addEventListener('change', (event) => {
-+      node.size[0] = parseFloat(event.target.value);
-+    });
-+    document.getElementById('node-size-height').addEventListener('change', (event) => {
-+      node.size[1] = parseFloat(event.target.value);
-+    });
-+    document.getElementById('node-color').addEventListener('change', (event) => {
-+      node.color = event.target.value;
-+    });
+     // Show the node editing UI
+     const nodeEditorUI = document.getElementById('node-editor-ui');
+     nodeEditorUI.style.display = 'block';
+     // Update the UI with the node's properties
+     document.getElementById('node-id').textContent = node.id;
+     document.getElementById('node-type').textContent = node.type;
+     document.getElementById('node-position-x').value = node.position[0];
+     document.getElementById('node-position-y').value = node.position[1];
+     document.getElementById('node-size-width').value = node.size[0];
+     document.getElementById('node-size-height').value = node.size[1];
+     document.getElementById('node-color').value = node.color;
+     // Add event listeners to the UI elements to update the node's properties
+     document.getElementById('node-position-x').addEventListener('change', (event) => {
+       node.position[0] = parseFloat(event.target.value);
+     });
+     document.getElementById('node-position-y').addEventListener('change', (event) => {
+       node.position[1] = parseFloat(event.target.value);
+     });
+     document.getElementById('node-size-width').addEventListener('change', (event) => {
+       node.size[0] = parseFloat(event.target.value);
+     });
+     document.getElementById('node-size-height').addEventListener('change', (event) => {
+       node.size[1] = parseFloat(event.target.value);
+     });
+     document.getElementById('node-color').addEventListener('change', (event) => {
+       node.color = event.target.value;
+     });
    }
  });
