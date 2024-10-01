@@ -62,4 +62,6 @@
  ## 🌱 Scene Graph API
  
  The scene graph API provides a set of classes and methods for creating, manipulating, and rendering visual elements. It is designed to be flexible and extensible, allowing developers to create complex scenes with ease.
-@@ -90,7 +95,7 @@
+@@ -90,7 +95,7 @@```
+
+src/scene/LabelNode.js

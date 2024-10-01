@@ -1,17 +1,17 @@
 import Renderer from './rendering/Renderer';
 import Camera from './camera/Camera';
 import InputManager from './input/InputManager';
-import Scene from './scene/Scene';
-import WidgetNode from './scene/WidgetNode';
-import NodeRenderer from './rendering/NodeRenderer';
-import EdgeNode from './scene/EdgeNode';
-import EdgeRenderer from './rendering/EdgeRenderer';
-import ButtonNode from './scene/ButtonNode';
-import ButtonNodeRenderer from './rendering/ButtonNodeRenderer';
-import SliderNode from './scene/SliderNode';
-import SliderNodeRenderer from './rendering/SliderNodeRenderer';
-import LabelNode from './scene/LabelNode';
-import LabelNodeRenderer from './rendering/LabelNodeRenderer';
+import Scene from '../scene/Scene';
+import WidgetNode from '../scene/WidgetNode';
+import NodeRenderer from '../rendering/NodeRenderer';
+import EdgeNode from '../scene/EdgeNode';
+import EdgeRenderer from '../rendering/EdgeRenderer';
+import ButtonNode from '../scene/ButtonNode';
+import ButtonNodeRenderer from '../rendering/ButtonNodeRenderer';
+import SliderNode from '../scene/SliderNode';
+import SliderNodeRenderer from '../rendering/SliderNodeRenderer';
+import LabelNode from '../scene/LabelNode';
+import LabelNodeRenderer from '../rendering/LabelNodeRenderer';
 
 // Create a new scene
 const scene = new Scene();
