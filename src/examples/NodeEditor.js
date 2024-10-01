@@ -5,6 +5,7 @@ import InputHandler from './InputHandler';
 import NodeEditorUI from './NodeEditorUI';
  
  class NodeEditor {
+   constructor(canvas) {
 @@ -1100,28 +1106,28 @@
        }
      });
