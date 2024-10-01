@@ -4,12 +4,13 @@ import InputManager from './input/InputManager';
 import Scene from './scene/Scene';
 import Node from './scene/Node';
 import WidgetNode from './scene/WidgetNode';
+import RectangleNodeRenderer from './rendering/RectangleNodeRenderer';
 
 // Create a new scene
 const scene = new Scene();
 
 // Create a new renderer
-const renderer = new Renderer();
+const renderer = new Renderer(document.getElementById('canvas'));
 
 // Create a new camera
 const camera = new Camera();
@@ -33,6 +34,9 @@ const widgetNode = new WidgetNode('widget1', 'widget', {
 scene.addNode(node1);
 scene.addNode(widgetNode);
 
+// Register the rectangle node renderer
+renderer.registerNodeRenderer('widget', new RectangleNodeRenderer());
+
 // Set up the rendering loop
 function render() {
   // Update the camera's view matrix
@@ -47,6 +51,9 @@ function render() {
 
 // Start the rendering loop
 render();
+
+// Set the camera for the renderer
+renderer.setCamera(camera);
 
 // Add event listeners for user input
 inputManager.addHandler('pan', (dx, dy) => {
