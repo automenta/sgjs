@@ -1,6 +1,5 @@
 # Fractal Zooming User Interface
 
-
 This is a prototype for a "Fractal" Zooming HTML environment. It uses CSS transforms to position and scale HTML fragments to Cytoscape.js (graph visualization) nodes. There is also preliminary support for dataflow diagramming.
 
 Imagine exploring vast datasets, intricate graphs, or expansive maps with ease, zooming in to reveal hidden details and panning across the canvas to uncover new insights. The ZUI system makes this possible through a combination of cutting-edge technologies and thoughtful design. 🕵️‍♀️
@@ -63,22 +62,7 @@ The camera system controls the viewport and zoom level, allowing users to naviga
 The input handlers are responsible for processing mouse and touch events, allowing users to interact with the scene graph. They translate user input into actions like panning, zooming, and selecting nodes.
 
 - **InputManager:** The main input handler class that listens for mouse and touch events. It dispatches events to appropriate handlers based on the current interaction mode.
-- **MouseHandler:** Handles mouse events like clicks, drags, and wheel scrolling.
-- **TouchHandler:** Handles touch events like taps, swipes, and pinch gestures.
-
-### ✂️ Frustum Culling
-
-Frustum culling is an optimization technique that reduces the number of nodes that need to be rendered by only drawing those that are visible within the current viewport. This significantly improves performance, especially for large scenes with many nodes.
-
-- **Frustum:** A geometric shape that represents the visible area of the viewport.
-- **Culling Algorithm:** An algorithm that determines which nodes are inside the frustum and should be rendered.
-
-### 🔌 Plugin System
-
-The plugin system allows developers to extend the functionality of the ZUI system by adding custom features and behaviors. Plugins can be easily loaded and unloaded, allowing for flexible customization.
-
-- **PluginManager:** The main plugin manager class that handles loading, unloading, and managing plugins.
-- **Plugin:** The base class for all plugins. It defines the interface for interacting with the ZUI system.
+- **TouchHandler:** Handles mouse events like clicks, drags, and wheel scrolling, and touch events like taps, swipes, and pinch gestures.
 
 ## 🌱 Scene Graph API
 
@@ -96,8 +80,12 @@ Nodes in the scene graph represent visual objects and have properties like posit
 The ZUI system provides a set of built-in node types for common visual elements:
 
 - **WidgetNode:** A basic node representing a visual element with attributes like shape, color, and size.
-- **ContainerNode:** A specialized node that can contain other nodes, allowing for grouping and layout management.
-- **EdgeNode:** A node representing a connection between two other nodes, typically used for dataflow diagrams.
+- **ButtonNode** Pushbutton
+- **SliderNode** Draggable slider
+- **LabelNode** Label, with mutable text and font options
+- **ContainerNode:** A specialized node that can contain other nodes, allowing for grouping and layout management
+- **EdgeNode:** A node representing a connection between two other nodes, typically used for dataflow diagrams
+- **TODO: OTHERS**
 
 ### 🎨 Custom Nodes
 
@@ -156,33 +144,6 @@ The ZUI system uses multiple coordinate systems to manage the positions of nodes
 - **Camera Space:** The coordinate system relative to the camera, where nodes are transformed before being rendered.
 - **Screen Space:** The coordinate system of the canvas, where pixels are drawn.
 
-## 🖱️ Input Handling
-
-The input handlers are responsible for processing mouse and touch events, allowing users to interact with the scene graph. They translate user input into actions like panning, zooming, and selecting nodes.
-
-### 🐭 Mouse Events
-
-Mouse events are used to handle interactions with the scene graph using a mouse.
-
-- **Click:** A single mouse button press and release.
-- **Drag:** Holding down a mouse button and moving the mouse.
-- **Wheel Scroll:** Rotating the mouse wheel.
-
-### 👆 Touch Events
-
-Touch events are used to handle interactions with the scene graph using a touch screen.
-
-- **Tap:** A single touch press and release.
-- **Swipe:** Holding down a touch and moving the finger across the screen.
-- **Pinch Gesture:** Two fingers touching the screen and moving them closer together or further apart.
-
-### 🕴️ Gesture Recognition
-
-Gesture recognition is used to identify and interpret complex user input, such as swipes, pinches, and rotations.
-
-- **Gesture Recognizer:** A component that analyzes touch events and identifies gestures.
-- **Gesture Handler:** A component that responds to recognized gestures.
-
 ## 🚀 Performance Optimizations
 
 The ZUI system employs various optimization techniques to ensure smooth rendering, even for large and complex scenes.
@@ -208,52 +169,27 @@ Spatial indexing is a technique that organizes nodes in a spatial data structure
 - **Spatial Index:** A data structure that stores nodes based on their spatial location.
 - **Query Algorithm:** An algorithm that efficiently searches the spatial index for nodes within a given region.
 
-## 🔌 Plugin System
+### 🎉 Examples
 
-The plugin system allows developers to extend the functionality of the ZUI system by adding custom features and behaviors. Plugins can be easily loaded and unloaded, allowing for flexible customization.
+The ZUI system includes a set of examples that demonstrate common use cases:
 
-### 🧩 Creating Plugins
-
-Plugins are JavaScript modules that implement a specific interface. They can access the ZUI system's API to interact with the scene graph, camera, input handlers, and other components.
-
-- **Plugin Interface:** A set of methods and properties that define how plugins interact with the ZUI system.
-- **Plugin Registration:** A mechanism for registering plugins with the ZUI system.
-
-### 🪝 Hooking into the Rendering Loop
-
-Plugins can hook into the rendering loop to perform custom actions before or after the scene graph is rendered. This allows for dynamic updates and effects.
-
-- **Rendering Loop:** The main loop that renders the scene graph.
-- **Plugin Hooks:** Points in the rendering loop where plugins can execute custom code.
-
-### 🎉 Example Plugins
-
-The ZUI system includes a set of example plugins that demonstrate common use cases:
-
-- **Node Editor Plugin:** Allows users to edit the properties of nodes.
-- **Layout Plugin:** Provides different layout algorithms for arranging nodes.
-- **Dataflow Plugin:** Enables the creation of dataflow diagrams.
-
-## 🎨 Examples and Demos
-
-The ZUI system comes with a collection of examples and demos that showcase its capabilities:
-
-- **Basic Zoomable UI:** A simple example demonstrating the basic features of the ZUI system.
-- **Large Graph Visualization:** An example of visualizing a large graph with thousands of nodes.
+- **Basic Zooming Interaction:** A simple example demonstrating the basic features of the ZUI system.
+- **Layout:** Provides different layout algorithms for arranging nodes.
+- **Widget:** Includes all widget types
+- **Node Editor:** Allows users to edit the properties of nodes.
+- **Dataflow:** Enables the creation of dataflow diagrams.
+- **Large Graph Visualization:** An example of visualizing a large (random?) graph with thousands of nodes.
 - **Infinite Canvas:** An example of creating an infinite canvas for drawing and editing.
 
 ## 🗺️ Roadmap and Vision
 
 The ZUI system is under active development, with a roadmap that includes exciting new features and improvements.
 
-### 🎯 Near-term Goals
+### 🎯 Goals
 
 - **Improved Performance:** Further optimize rendering and culling algorithms for even smoother performance.
 - **Enhanced User Experience:** Add more intuitive interaction modes and gestures.
 - **Extended Functionality:** Implement new node types and plugins for specific use cases.
-
-### 🌌 Long-term Vision
-
 - **3D Support:** Extend the ZUI system to support 3D rendering.
 - **Virtual Reality Integration:** Enable immersive experiences using VR headsets.
 - **Collaborative Editing:** Allow multiple users to edit the scene graph simultaneously.
