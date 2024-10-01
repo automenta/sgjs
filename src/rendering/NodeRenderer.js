@@ -28,4 +28,49 @@ NodeRenderer.prototype.loadShader = function(type, filename) {
   glContext.gl.compileShader(shader);
 
   if (!glContext.gl.getShaderParameter(shader, glContext.gl.COMPILE_STATUS)) {
-    alert('An error occurred compiling the shaders: ' + glContext.gl.getShaderInfoLog(shader
+    alert('An error occurred compiling the shaders: ' + glContext.gl.getShaderInfoLog(shader));
+    glContext.gl.deleteShader(shader);
+    return null;
+  }
+
+  return shader;
+};
+
+NodeRenderer.prototype.getShaderSource = function(filename) {
+  const request = new XMLHttpRequest();
+  request.open('GET', `./${filename}`, false);
+  request.send();
+  return request.responseText;
+};
+
+NodeRenderer.prototype.render = function(node, camera) {
+  // Get the shader program
+  const shaderProgram = this.shaderProgram;
+
+  // Use the shader program
+  glContext.gl.useProgram(shaderProgram);
+
+  // Get the attribute and uniform locations
+  const positionLocation = glContext.gl.getAttribLocation(shaderProgram, 'a_position');
+  const colorLocation = glContext.gl.getAttribLocation(shaderProgram, 'a_color');
+  const modelViewProjectionLocation = glContext.gl.getUniformLocation(shaderProgram, 'u_modelViewProjection');
+
+  // Bind the vertex data
+  glContext.gl.bindBuffer(glContext.gl.ARRAY_BUFFER, node.vertexData.buffer);
+
+  // Set the attribute pointers
+  glContext.gl.vertexAttribPointer(positionLocation, 2, glContext.gl.FLOAT, false, 0, 0);
+  glContext.gl.enableVertexAttribArray(positionLocation);
+
+  glContext.gl.vertexAttribPointer(colorLocation, 4, glContext.gl.FLOAT, false, 0, 0);
+  glContext.gl.enableVertexAttribArray(colorLocation);
+
+  // Set the uniform values
+  glContext.gl.uniform4fv(colorLocation, node.vertexData.color);
+  glContext.gl.uniformMatrix4fv(modelViewProjectionLocation, false, camera.getViewMatrix());
+
+  // Draw the node
+  glContext.gl.drawArrays(glContext.gl.TRIANGLES, 0, 6);
+};
+
+module.exports = NodeRenderer;
