@@ -11,7 +11,7 @@ class Renderer {
   }
 
   // Method for creating a shader program
-  createProgram(vertexShaderSource, fragmentShaderSource) {
+  createShaderProgram(vertexShaderSource, fragmentShaderSource) {
     const vertexShader = this.loadShader(gl.VERTEX_SHADER, vertexShaderSource);
     const fragmentShader = this.loadShader(gl.FRAGMENT_SHADER, fragmentShaderSource);
 
@@ -45,32 +45,82 @@ class Renderer {
   // Method for rendering a node
   renderNode(node) {
     // Get the appropriate shader program for the node's type
-    const program = this.programs[node.type];
+    let program = this.programs[node.type];
     if (!program) {
       // Create the shader program if it doesn't exist
-      program = this.createProgram(
-        `
-        attribute vec2 aVertexPosition;
-        attribute vec4 aVertexColor;
+      if (node.type === 'node') {
+        program = this.createShaderProgram(
+          `
+          attribute vec2 aVertexPosition;
+          attribute vec4 aVertexColor;
 
-        uniform mat4 uModelViewMatrix;
-        uniform mat4 uProjectionMatrix;
+          uniform mat4 uModelViewMatrix;
+          uniform mat4 uProjectionMatrix;
 
-        varying lowp vec4 vColor;
+          varying lowp vec4 vColor;
 
-        void main(void) {
-          gl_Position = uProjectionMatrix * uModelViewMatrix * vec4(aVertexPosition, 0.0, 1.0);
-          vColor = aVertexColor;
-        }
-        `,
-        `
-        varying lowp vec4 vColor;
+          void main(void) {
+            gl_Position = uProjectionMatrix * uModelViewMatrix * vec4(aVertexPosition, 0.0, 1.0);
+            vColor = aVertexColor;
+          }
+          `,
+          `
+          varying lowp vec4 vColor;
 
-        void main(void) {
-          gl_FragColor = vColor;
-        }
-        `,
-      );
+          void main(void) {
+            gl_FragColor = vColor;
+          }
+          `,
+        );
+      } else if (node.type === 'widget') {
+        program = this.createShaderProgram(
+          `
+          attribute vec2 aVertexPosition;
+          attribute vec4 aVertexColor;
+
+          uniform mat4 uModelViewMatrix;
+          uniform mat4 uProjectionMatrix;
+
+          varying lowp vec4 vColor;
+
+          void main(void) {
+            gl_Position = uProjectionMatrix * uModelViewMatrix * vec4(aVertexPosition, 0.0, 1.0);
+            vColor = aVertexColor;
+          }
+          `,
+          `
+          varying lowp vec4 vColor;
+
+          void main(void) {
+            gl_FragColor = vColor;
+          }
+          `,
+        );
+      } else if (node.type === 'edge') {
+        program = this.createShaderProgram(
+          `
+          attribute vec2 aVertexPosition;
+          attribute vec4 aVertexColor;
+
+          uniform mat4 uModelViewMatrix;
+          uniform mat4 uProjectionMatrix;
+
+          varying lowp vec4 vColor;
+
+          void main(void) {
+            gl_Position = uProjectionMatrix * uModelViewMatrix * vec4(aVertexPosition, 0.0, 1.0);
+            vColor = aVertexColor;
+          }
+          `,
+          `
+          varying lowp vec4 vColor;
+
+          void main(void) {
+            gl_FragColor = vColor;
+          }
+          `,
+        );
+      }
       this.programs[node.type] = program;
     }
 
