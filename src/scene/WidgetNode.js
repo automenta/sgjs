@@ -1,47 +1,48 @@
-import Node from './Node';
-import VertexData from '../utils/VertexData';
+var Node = require('./Node');
+var VertexData = require('../utils/VertexData');
 
-class WidgetNode extends Node {
-  constructor(id, type, props) {
-    super(id, type, props);
-    this.shape = props.shape || 'rect'; // Default shape is rectangle
-    this.color = props.color || '#000000'; // Default color is black
-    this.size = props.size || [100, 50]; // Default size is 100x50
-    this.vertexData = VertexData.createRectangle(this.size[0], this.size[1], this.color);
-  }
+var WidgetNode = function(id, type, props) {
+  Node.call(this, id, type, props);
+  this.shape = props.shape || 'rect'; // Default shape is rectangle
+  this.color = props.color || '#000000'; // Default color is black
+  this.size = props.size || [100, 50]; // Default size is 100x50
+  this.vertexData = VertexData.createRectangle(this.size[0], this.size[1], this.color);
+};
 
-  // Methods for setting and getting shape, color, and size
-  setShape(shape) {
-    this.shape = shape;
-  }
+WidgetNode.prototype = Object.create(Node.prototype);
+WidgetNode.prototype.constructor = WidgetNode;
 
-  getShape() {
-    return this.shape;
-  }
+// Methods for setting and getting shape, color, and size
+WidgetNode.prototype.setShape = function(shape) {
+  this.shape = shape;
+};
 
-  setColor(color) {
-    this.color = color;
-    this.vertexData = VertexData.createRectangle(this.size[0], this.size[1], this.color);
-  }
+WidgetNode.prototype.getShape = function() {
+  return this.shape;
+};
 
-  getColor() {
-    return this.color;
-  }
+WidgetNode.prototype.setColor = function(color) {
+  this.color = color;
+  this.vertexData = VertexData.createRectangle(this.size[0], this.size[1], this.color);
+};
 
-  setSize(width, height) {
-    this.size = [width, height];
-    this.vertexData = VertexData.createRectangle(this.size[0], this.size[1], this.color);
-  }
+WidgetNode.prototype.getColor = function() {
+  return this.color;
+};
 
-  getSize() {
-    return this.size;
-  }
+WidgetNode.prototype.setSize = function(width, height) {
+  this.size = [width, height];
+  this.vertexData = VertexData.createRectangle(this.size[0], this.size[1], this.color);
+};
 
-  // Methods for rendering the widget node
-  render(renderer) {
-    // Render the widget node based on its shape, color, and size
-    renderer.renderNode(this);
-  }
-}
+WidgetNode.prototype.getSize = function() {
+  return this.size;
+};
 
-export default WidgetNode;
+// Methods for rendering the widget node
+WidgetNode.prototype.render = function(renderer) {
+  // Render the widget node based on its shape, color, and size
+  renderer.renderNode(this);
+};
+
+module.exports = WidgetNode;

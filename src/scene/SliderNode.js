@@ -1,65 +1,66 @@
-import Node from './Node';
-import VertexData from '../utils/VertexData';
+var Node = require('./Node');
+var VertexData = require('../utils/VertexData');
 
-class SliderNode extends Node {
-  constructor(id, type, props) {
-    super(id, type, props);
-    this.value = props.value || 0;
-    this.min = props.min || 0;
-    this.max = props.max || 100;
-    this.color = props.color || '#000000';
-    this.size = props.size || [100, 20];
-    this.vertexData = VertexData.createRectangle(this.size[0], this.size[1], this.color);
-  }
+var SliderNode = function(id, type, props) {
+  Node.call(this, id, type, props);
+  this.value = props.value || 0;
+  this.min = props.min || 0;
+  this.max = props.max || 100;
+  this.color = props.color || '#000000';
+  this.size = props.size || [100, 20];
+  this.vertexData = VertexData.createRectangle(this.size[0], this.size[1], this.color);
+};
 
-  // Methods for setting and getting value, min, max, color, and size
-  setValue(value) {
-    this.value = value;
-  }
+SliderNode.prototype = Object.create(Node.prototype);
+SliderNode.prototype.constructor = SliderNode;
 
-  getValue() {
-    return this.value;
-  }
+// Methods for setting and getting value, min, max, color, and size
+SliderNode.prototype.setValue = function(value) {
+  this.value = value;
+};
 
-  setMin(min) {
-    this.min = min;
-  }
+SliderNode.prototype.getValue = function() {
+  return this.value;
+};
 
-  getMin() {
-    return this.min;
-  }
+SliderNode.prototype.setMin = function(min) {
+  this.min = min;
+};
 
-  setMax(max) {
-    this.max = max;
-  }
+SliderNode.prototype.getMin = function() {
+  return this.min;
+};
 
-  getMax() {
-    return this.max;
-  }
+SliderNode.prototype.setMax = function(max) {
+  this.max = max;
+};
 
-  setColor(color) {
-    this.color = color;
-    this.vertexData = VertexData.createRectangle(this.size[0], this.size[1], this.color);
-  }
+SliderNode.prototype.getMax = function() {
+  return this.max;
+};
 
-  getColor() {
-    return this.color;
-  }
+SliderNode.prototype.setColor = function(color) {
+  this.color = color;
+  this.vertexData = VertexData.createRectangle(this.size[0], this.size[1], this.color);
+};
 
-  setSize(width, height) {
-    this.size = [width, height];
-    this.vertexData = VertexData.createRectangle(this.size[0], this.size[1], this.color);
-  }
+SliderNode.prototype.getColor = function() {
+  return this.color;
+};
 
-  getSize() {
-    return this.size;
-  }
+SliderNode.prototype.setSize = function(width, height) {
+  this.size = [width, height];
+  this.vertexData = VertexData.createRectangle(this.size[0], this.size[1], this.color);
+};
 
-  // Methods for rendering the slider node
-  render(renderer) {
-    // Render the slider node based on its value, min, max, color, and size
-    renderer.renderNode(this);
-  }
-}
+SliderNode.prototype.getSize = function() {
+  return this.size;
+};
 
-export default SliderNode;
+// Methods for rendering the slider node
+SliderNode.prototype.render = function(renderer) {
+  // Render the slider node based on its value, min, max, color, and size
+  renderer.renderNode(this);
+};
+
+module.exports = SliderNode;

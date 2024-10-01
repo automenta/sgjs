@@ -1,45 +1,45 @@
-import Renderer from '../rendering/Renderer';
-import Camera from '../camera/Camera';
-import InputManager from '../input/InputManager';
-import Scene from '../scene/Scene';
-import WidgetNode from '../scene/WidgetNode';
-import NodeRenderer from '../rendering/NodeRenderer';
-import TextNode from '../scene/TextNode';
-import ShapeNode from '../scene/ShapeNode';
-import GroupNode from '../scene/GroupNode';
-import ButtonNode from '../scene/ButtonNode';
-import ButtonNodeRenderer from '../rendering/ButtonNodeRenderer';
-import SliderNode from '../scene/SliderNode';
-import SliderNodeRenderer from '../rendering/SliderNodeRenderer';
-import LabelNode from '../scene/LabelNode';
-import LabelNodeRenderer from '../rendering/LabelNodeRenderer';
+var Renderer = require('../rendering/Renderer');
+var Camera = require('../camera/Camera');
+var InputManager = require('../input/InputManager');
+var Scene = require('../scene/Scene');
+var WidgetNode = require('../scene/WidgetNode');
+var NodeRenderer = require('../rendering/NodeRenderer');
+var TextNode = require('../scene/TextNode');
+var ShapeNode = require('../scene/ShapeNode');
+var GroupNode = require('../scene/GroupNode');
+var ButtonNode = require('../scene/ButtonNode');
+var ButtonNodeRenderer = require('../rendering/ButtonNodeRenderer');
+var SliderNode = require('../scene/SliderNode');
+var SliderNodeRenderer = require('../rendering/SliderNodeRenderer');
+var LabelNode = require('../scene/LabelNode');
+var LabelNodeRenderer = require('../rendering/LabelNodeRenderer');
 
 // Create a new scene
-const scene = new Scene();
+var scene = new Scene();
 
 // Create a new renderer
-const renderer = new Renderer(document.getElementById('canvas'));
+var renderer = new Renderer(document.getElementById('canvas'));
 
 // Create a new camera
-const camera = new Camera();
+var camera = new Camera();
 
 // Create a new input manager
-const inputManager = new InputManager(renderer.canvas);
+var inputManager = new InputManager(renderer.canvas);
 
 // Create a group node
-const groupNode = new GroupNode('group1', 'group', {
+var groupNode = new GroupNode('group1', 'group', {
   position: [100, 100],
 });
 
 // Create a widget node
-const widgetNode1 = new WidgetNode('widget1', 'widget', {
+var widgetNode1 = new WidgetNode('widget1', 'widget', {
   position: [0, 0],
   color: [1.0, 0.0, 0.0, 1.0],
   size: [50, 50],
 });
 
 // Create a text node
-const textNode = new TextNode('text1', 'text', {
+var textNode = new TextNode('text1', 'text', {
   position: [75, 75],
   text: 'Hello, world!',
   font: '20px Arial',
@@ -47,7 +47,7 @@ const textNode = new TextNode('text1', 'text', {
 });
 
 // Create a shape node
-const shapeNode = new ShapeNode('shape1', 'shape', {
+var shapeNode = new ShapeNode('shape1', 'shape', {
   position: [150, 150],
   shape: 'circle',
   color: [0.0, 1.0, 0.0, 1.0],
@@ -55,7 +55,7 @@ const shapeNode = new ShapeNode('shape1', 'shape', {
 });
 
 // Create a button node
-const buttonNode = new ButtonNode('button1', 'button', {
+var buttonNode = new ButtonNode('button1', 'button', {
   position: [250, 250],
   size: [100, 50],
   color: [0.0, 0.0, 1.0, 1.0],
@@ -66,7 +66,7 @@ const buttonNode = new ButtonNode('button1', 'button', {
 });
 
 // Create a slider node
-const sliderNode = new SliderNode('slider1', 'slider', {
+var sliderNode = new SliderNode('slider1', 'slider', {
   position: [400, 400],
   color: [0.5, 0.5, 0.5, 1.0],
   value: 50,
@@ -75,7 +75,7 @@ const sliderNode = new SliderNode('slider1', 'slider', {
 });
 
 // Create a label node
-const labelNode = new LabelNode('label1', 'label', {
+var labelNode = new LabelNode('label1', 'label', {
   position: [500, 500],
   color: [0.0, 0.0, 0.0, 1.0],
   text: 'Hello World',

@@ -1,4 +1,4 @@
-let gl;
+var gl;
 
 // Function for initializing the WebGL context
 function initWebGL(canvas) {
@@ -11,7 +11,7 @@ function initWebGL(canvas) {
 }
 
 // Export the WebGL context
-const glContext = {
+var glContext = {
   gl: gl,
   initWebGL: initWebGL,
 };

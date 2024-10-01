@@ -1,83 +1,81 @@
-import { gl } from '../utils/webgl';
+var gl = require('../utils/webgl').gl;
 
-class ButtonNodeRenderer {
-  constructor() {
-    // Create a shader program for rendering buttons
-    this.shaderProgram = this.createShaderProgram();
+var ButtonNodeRenderer = function() {
+  // Create a shader program for rendering buttons
+  this.shaderProgram = this.createShaderProgram();
+};
+
+// Method for creating the shader program
+ButtonNodeRenderer.prototype.createShaderProgram = function() {
+  const vertexShader = this.loadShader(gl.VERTEX_SHADER, 'basic.vert');
+  const fragmentShader = this.loadShader(gl.FRAGMENT_SHADER, 'basic.frag');
+
+  const shaderProgram = gl.createProgram();
+  gl.attachShader(shaderProgram, vertexShader);
+  gl.attachShader(shaderProgram, fragmentShader);
+  gl.linkProgram(shaderProgram);
+
+  if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
+    alert('Unable to initialize the shader program: ' + gl.getProgramInfoLog(shaderProgram));
+    return null;
   }
 
-  // Method for creating the shader program
-  createShaderProgram() {
-    const vertexShader = this.loadShader(gl.VERTEX_SHADER, 'basic.vert');
-    const fragmentShader = this.loadShader(gl.FRAGMENT_SHADER, 'basic.frag');
+  return shaderProgram;
+};
 
-    const shaderProgram = gl.createProgram();
-    gl.attachShader(shaderProgram, vertexShader);
-    gl.attachShader(shaderProgram, fragmentShader);
-    gl.linkProgram(shaderProgram);
+// Method for loading a shader
+ButtonNodeRenderer.prototype.loadShader = function(type, filename) {
+  const shader = gl.createShader(type);
+  const source = this.getShaderSource(filename);
+  gl.shaderSource(shader, source);
+  gl.compileShader(shader);
 
-    if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-      alert('Unable to initialize the shader program: ' + gl.getProgramInfoLog(shaderProgram));
-      return null;
-    }
-
-    return shaderProgram;
+  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+    alert('An error occurred compiling the shaders: ' + gl.getShaderInfoLog(shader));
+    gl.deleteShader(shader);
+    return null;
   }
 
-  // Method for loading a shader
-  loadShader(type, filename) {
-    const shader = gl.createShader(type);
-    const source = this.getShaderSource(filename);
-    gl.shaderSource(shader, source);
-    gl.compileShader(shader);
+  return shader;
+};
 
-    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-      alert('An error occurred compiling the shaders: ' + gl.getShaderInfoLog(shader));
-      gl.deleteShader(shader);
-      return null;
-    }
+// Method for getting the shader source from a file
+ButtonNodeRenderer.prototype.getShaderSource = function(filename) {
+  const request = new XMLHttpRequest();
+  request.open('GET', `./${filename}`, false);
+  request.send();
+  return request.responseText;
+};
 
-    return shader;
-  }
+// Method for rendering a button node
+ButtonNodeRenderer.prototype.render = function(node, camera) {
+  // Get the shader program
+  const shaderProgram = this.shaderProgram;
 
-  // Method for getting the shader source from a file
-  getShaderSource(filename) {
-    const request = new XMLHttpRequest();
-    request.open('GET', `./${filename}`, false);
-    request.send();
-    return request.responseText;
-  }
+  // Use the shader program
+  gl.useProgram(shaderProgram);
 
-  // Method for rendering a button node
-  render(node, camera) {
-    // Get the shader program
-    const shaderProgram = this.shaderProgram;
+  // Get the attribute and uniform locations
+  const positionLocation = gl.getAttribLocation(shaderProgram, 'a_position');
+  const colorLocation = gl.getAttribLocation(shaderProgram, 'a_color');
+  const modelViewProjectionLocation = gl.getUniformLocation(shaderProgram, 'u_modelViewProjection');
 
-    // Use the shader program
-    gl.useProgram(shaderProgram);
+  // Bind the vertex data
+  gl.bindBuffer(gl.ARRAY_BUFFER, node.vertexData.buffer);
 
-    // Get the attribute and uniform locations
-    const positionLocation = gl.getAttribLocation(shaderProgram, 'a_position');
-    const colorLocation = gl.getAttribLocation(shaderProgram, 'a_color');
-    const modelViewProjectionLocation = gl.getUniformLocation(shaderProgram, 'u_modelViewProjection');
+  // Set the attribute pointers
+  gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+  gl.enableVertexAttribArray(positionLocation);
 
-    // Bind the vertex data
-    gl.bindBuffer(gl.ARRAY_BUFFER, node.vertexData.buffer);
+  gl.vertexAttribPointer(colorLocation, 4, gl.FLOAT, false, 0, 0);
+  gl.enableVertexAttribArray(colorLocation);
 
-    // Set the attribute pointers
-    gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
-    gl.enableVertexAttribArray(positionLocation);
+  // Set the uniform values
+  gl.uniform4fv(colorLocation, node.vertexData.color);
+  gl.uniformMatrix4fv(modelViewProjectionLocation, false, camera.getViewMatrix());
 
-    gl.vertexAttribPointer(colorLocation, 4, gl.FLOAT, false, 0, 0);
-    gl.enableVertexAttribArray(colorLocation);
+  // Draw the button
+  gl.drawArrays(gl.TRIANGLES, 0, 6);
+};
 
-    // Set the uniform values
-    gl.uniform4fv(colorLocation, node.vertexData.color);
-    gl.uniformMatrix4fv(modelViewProjectionLocation, false, camera.getViewMatrix());
-
-    // Draw the button
-    gl.drawArrays(gl.TRIANGLES, 0, 6);
-  }
-}
-
-export default ButtonNodeRenderer;
+module.exports = ButtonNodeRenderer;

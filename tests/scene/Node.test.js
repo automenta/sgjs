@@ -1,4 +1,4 @@
-import Node from '../../src/scene/Node';
+var Node = require('../../src/scene/Node');
 
 describe('Node', () => {
   let node;
