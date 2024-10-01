@@ -4,8 +4,8 @@
    }
  
    getNodeAtPoint(x, y) { // Find the node at a given point (for selection)
--    // TODO: Implement logic to find the node at the given point
-+    return this.nodes.find(node => node.containsPoint(x, y));
+-    return this.nodes.find(node => node.containsPoint(x, y));
++    return this.nodes.find((node) => node.containsPoint(x, y));
    }
  }
  

@@ -33,7 +33,7 @@ class ContainerNode extends Node {
   render(renderer) {
     // Render the container node and its children
     renderer.renderNode(this);
-    this.children.forEach(child => child.render(renderer));
+    this.children.forEach((child) => child.render(renderer));
   }
 }
 
