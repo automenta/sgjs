@@ -1,4 +1,8 @@
 import NodeEditor from './NodeEditor';
+import GroupNode from '../scene/GroupNode';
+import WidgetNode from '../scene/WidgetNode';
+import TextNode from '../scene/TextNode';
+import ShapeNode from '../scene/ShapeNode';
 
 // Create a new node editor
 const nodeEditor = new NodeEditor(document.getElementById('canvas'));
