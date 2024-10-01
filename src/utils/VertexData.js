@@ -1,5 +1,3 @@
-import { gl } from './webgl';
-
 class VertexData {
   constructor(vertices, color) {
     this.vertices = vertices;
@@ -9,9 +7,9 @@ class VertexData {
 
   // Method for creating the vertex buffer
   createBuffer() {
-    const buffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.vertices), gl.STATIC_DRAW);
+    const buffer = glContext.gl.createBuffer();
+    glContext.gl.bindBuffer(glContext.gl.ARRAY_BUFFER, buffer);
+    glContext.gl.bufferData(glContext.gl.ARRAY_BUFFER, new Float32Array(this.vertices), glContext.gl.STATIC_DRAW);
     return buffer;
   }
 
@@ -37,5 +35,3 @@ class VertexData {
     return new VertexData(vertices, color);
   }
 }
-
-export default VertexData;

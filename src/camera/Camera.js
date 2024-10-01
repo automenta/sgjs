@@ -54,5 +54,3 @@ class Camera {
     this.projectionMatrix = this.getProjectionMatrix();
   }
 }
-
-export default Camera;

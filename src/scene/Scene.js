@@ -1,5 +1,3 @@
-import Node from './Node';
-
 class Scene {
   constructor() {
     this.nodes = [];
@@ -13,5 +11,3 @@ class Scene {
     return this.nodes.find(node => node.containsPoint(x, y));
   }
 }
-
-export default Scene;

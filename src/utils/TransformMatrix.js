@@ -40,5 +40,3 @@ class TransformMatrix {
     ];
   }
 }
-
-export default TransformMatrix;

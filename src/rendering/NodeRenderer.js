@@ -1,21 +1,19 @@
-import { gl } from '../utils/webgl';
-
 class NodeRenderer {
   constructor() {
     this.shaderProgram = this.createShaderProgram();
   }
 
   createShaderProgram() {
-    const vertexShader = this.loadShader(gl.VERTEX_SHADER, 'basic.vert');
-    const fragmentShader = this.loadShader(gl.FRAGMENT_SHADER, 'basic.frag');
+    const vertexShader = this.loadShader(glContext.gl.VERTEX_SHADER, 'basic.vert');
+    const fragmentShader = this.loadShader(glContext.gl.FRAGMENT_SHADER, 'basic.frag');
 
-    const shaderProgram = gl.createProgram();
-    gl.attachShader(shaderProgram, vertexShader);
-    gl.attachShader(shaderProgram, fragmentShader);
-    gl.linkProgram(shaderProgram);
+    const shaderProgram = glContext.gl.createProgram();
+    glContext.gl.attachShader(shaderProgram, vertexShader);
+    glContext.gl.attachShader(shaderProgram, fragmentShader);
+    glContext.gl.linkProgram(shaderProgram);
 
-    if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-      alert('Unable to initialize the shader program: ' + gl.getProgramInfoLog(shaderProgram));
+    if (!glContext.gl.getProgramParameter(shaderProgram, glContext.gl.LINK_STATUS)) {
+      alert('Unable to initialize the shader program: ' + glContext.gl.getProgramInfoLog(shaderProgram));
       return null;
     }
 
@@ -23,14 +21,14 @@ class NodeRenderer {
   }
 
   loadShader(type, filename) {
-    const shader = gl.createShader(type);
+    const shader = glContext.gl.createShader(type);
     const source = this.getShaderSource(filename);
-    gl.shaderSource(shader, source);
-    gl.compileShader(shader);
+    glContext.gl.shaderSource(shader, source);
+    glContext.gl.compileShader(shader);
 
-    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-      alert('An error occurred compiling the shaders: ' + gl.getShaderInfoLog(shader));
-      gl.deleteShader(shader);
+    if (!glContext.gl.getShaderParameter(shader, glContext.gl.COMPILE_STATUS)) {
+      alert('An error occurred compiling the shaders: ' + glContext.gl.getShaderInfoLog(shader));
+      glContext.gl.deleteShader(shader);
       return null;
     }
 
@@ -46,24 +44,22 @@ class NodeRenderer {
 
   render(node, camera) {
     const shaderProgram = this.shaderProgram;
-    gl.useProgram(shaderProgram);
+    glContext.gl.useProgram(shaderProgram);
 
-    const positionLocation = gl.getAttribLocation(shaderProgram, 'a_position');
-    const colorLocation = gl.getAttribLocation(shaderProgram, 'a_color');
-    const modelViewProjectionLocation = gl.getUniformLocation(shaderProgram, 'u_modelViewProjection');
+    const positionLocation = glContext.gl.getAttribLocation(shaderProgram, 'a_position');
+    const colorLocation = glContext.gl.getAttribLocation(shaderProgram, 'a_color');
+    const modelViewProjectionLocation = glContext.gl.getUniformLocation(shaderProgram, 'u_modelViewProjection');
 
-    gl.bindBuffer(gl.ARRAY_BUFFER, node.vertexData.buffer);
+    glContext.gl.bindBuffer(glContext.gl.ARRAY_BUFFER, node.vertexData.buffer);
 
-    gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
-    gl.enableVertexAttribArray(positionLocation);
+    glContext.gl.vertexAttribPointer(positionLocation, 2, glContext.gl.FLOAT, false, 0, 0);
+    glContext.gl.enableVertexAttribArray(positionLocation);
 
-    gl.vertexAttribPointer(colorLocation, 4, gl.FLOAT, false, 0, 0);
-    gl.enableVertexAttribArray(colorLocation);
+    glContext.gl.vertexAttribPointer(colorLocation, 4, glContext.gl.FLOAT, false, 0, 0);
+    glContext.gl.enableVertexAttribArray(colorLocation);
 
-    gl.uniformMatrix4fv(modelViewProjectionLocation, false, camera.getViewMatrix());
+    glContext.gl.uniformMatrix4fv(modelViewProjectionLocation, false, camera.getViewMatrix());
 
-    gl.drawArrays(gl.TRIANGLES, 0, 6);
+    glContext.gl.drawArrays(glContext.gl.TRIANGLES, 0, 6);
   }
 }
-
-export default NodeRenderer;

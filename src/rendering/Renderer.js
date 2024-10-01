@@ -1,8 +1,3 @@
-import { createProgram, createShader } from '../utils/webgl';
-import VertexData from '../utils/VertexData';
-import TransformMatrix from '../utils/TransformMatrix';
-import { getProjectionMatrix } from '../utils/frustum';
-
 class Renderer {
   constructor(canvas) {
     this.canvas = canvas;
@@ -12,6 +7,7 @@ class Renderer {
     this.projectionMatrix = null;
     this.vertexData = new VertexData();
     this.transformMatrix = new TransformMatrix();
+    glContext.initWebGL(canvas);
   }
 
   registerNodeRenderer(type, renderer) {
@@ -20,11 +16,7 @@ class Renderer {
 
   setCamera(camera) {
     this.camera = camera;
-    this.projectionMatrix = getProjectionMatrix(
-      this.canvas.width,
-      this.canvas.height,
-      camera.zoom,
-    );
+    this.projectionMatrix = camera.getProjectionMatrix();
   }
 
   renderScene(scene) {
@@ -32,10 +24,8 @@ class Renderer {
     scene.nodes.forEach((node) => {
       const renderer = this.nodeRenderers[node.type];
       if (renderer) {
-        renderer.draw(this, node);
+        renderer.render(node, this.camera);
       }
     });
   }
 }
-
-export default Renderer;
