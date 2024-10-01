@@ -6,6 +6,7 @@ class Node {
     this.parent = null;
     this.children = [];
     this.transform = new TransformMatrix();
+    this.transform.setPosition(props.position[0], props.position[1]);
   }
 
   addChild(child) {
@@ -39,7 +40,7 @@ class Node {
 
   // Methods for rendering the node
   render(renderer) {
-    // Render the node using the provided renderer
+    renderer.renderNode(this);
   }
 }
 

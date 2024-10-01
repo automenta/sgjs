@@ -25,12 +25,22 @@ class Camera {
 
   // Method for getting the camera's view matrix
   getViewMatrix() {
-    // ... (implementation for calculating view matrix)
+    return [
+      1, 0, 0, 0,
+      0, 1, 0, 0,
+      0, 0, 1, 0,
+      -this.position[0], -this.position[1], 0, 1,
+    ];
   }
 
   // Method for getting the camera's projection matrix
   getProjectionMatrix() {
-    // ... (implementation for calculating projection matrix)
+    return [
+      this.zoom, 0, 0, 0,
+      0, this.zoom, 0, 0,
+      0, 0, 1, 0,
+      0, 0, 0, 1,
+    ];
   }
 }
 

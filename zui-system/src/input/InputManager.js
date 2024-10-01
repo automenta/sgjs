@@ -3,6 +3,8 @@ class InputManager {
     this.canvas = canvas;
     this.handlers = {}; // Store input handlers
     this.currentMode = 'pan'; // Default interaction mode is panning
+    this.isDragging = false;
+    this.lastMousePosition = [0, 0];
 
     // Add event listeners for mouse and touch events
     this.canvas.addEventListener('mousedown', this.handleMouseDown.bind(this));
@@ -26,19 +28,26 @@ class InputManager {
 
   // Event handlers for mouse and touch events
   handleMouseDown(event) {
-    // ... (handle mouse down event)
+    this.isDragging = true;
+    this.lastMousePosition = [event.clientX, event.clientY];
   }
 
   handleMouseMove(event) {
-    // ... (handle mouse move event)
+    if (this.isDragging) {
+      const dx = event.clientX - this.lastMousePosition[0];
+      const dy = event.clientY - this.lastMousePosition[1];
+      this.handlers[this.currentMode](dx, dy);
+      this.lastMousePosition = [event.clientX, event.clientY];
+    }
   }
 
   handleMouseUp(event) {
-    // ... (handle mouse up event)
+    this.isDragging = false;
   }
 
   handleWheel(event) {
-    // ... (handle wheel event)
+    const factor = event.deltaY > 0 ? 1.1 : 0.9;
+    this.handlers[this.currentMode](factor);
   }
 
   handleTouchStart(event) {

@@ -29,7 +29,12 @@ class TransformMatrix {
 
   // Method for updating the transform matrix
   updateMatrix() {
-    // ... (implementation for updating the matrix based on position, rotation, and scale)
+    this.matrix = [
+      this.scale[0], 0, 0, 0,
+      0, this.scale[1], 0, 0,
+      0, 0, 1, 0,
+      this.position[0], this.position[1], 0, 1,
+    ];
   }
 }
 

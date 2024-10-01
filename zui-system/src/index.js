@@ -2,6 +2,7 @@ import Renderer from './rendering/Renderer';
 import Camera from './camera/Camera';
 import InputManager from './input/InputManager';
 import Scene from './scene/Scene';
+import Node from './scene/Node';
 
 // Create a new scene
 const scene = new Scene();
@@ -14,6 +15,14 @@ const camera = new Camera();
 
 // Create a new input manager
 const inputManager = new InputManager(renderer.canvas);
+
+// Create a node
+const node = new Node('node1', 'node', {
+  position: [0, 0],
+});
+
+// Add the node to the scene
+scene.addNode(node);
 
 // Set up the rendering loop
 function render() {
